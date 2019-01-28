@@ -1,0 +1,10 @@
+data/obj/clean_93_0427.jpg
+data/obj/clean_93_0503.jpg
+data/obj/clean_93_0596.jpg
+data/obj/clean_93_0666.jpg
+data/obj/clean_93_0736.jpg
+data/obj/clean_93_0810.jpg
+data/obj/clean_93_0885.jpg
+data/obj/clean_93_0970.jpg
+data/obj/clean_93_1053.jpg
+data/obj/clean_93_1116.jpg
