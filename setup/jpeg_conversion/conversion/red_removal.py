@@ -172,7 +172,8 @@ def removeRed(files):
 
 
             # Write out
-            translation_file.write("0 " + str(center_x) + " " + str(center_y) + " " + str(xdim) + " " + str(ydim))
+            translation_file.write("0 " + str(center_x/float(im_x)) + " " + str(center_y/float(im_y)) + " "
+                                   + str(xdim/float(im_x)) + " " + str(ydim/float(im_y)))
 
 def cleanOut():
     if(not os.path.exists("../out/")):
