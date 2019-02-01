@@ -8,10 +8,11 @@ import test_train_files_build
 import jpeg_conversion
 import csv
 
-IMAGE_OUT_PATH = "../out/data/images/"
-TRAINING_DATA_PATH = "../out/data/"
+IMAGE_OUT_PATH = "../../training/darknet/data/images/"
+TRAINING_DATA_PATH = "../../training/darknet/data/"
 
 BOUNDING_BOX_SIZE = 40
+
 
 def getSurroundingColours(y, x, image):
     red = [0, 0, 255]
@@ -57,13 +58,10 @@ def getMask(image):
     # return np.where(mask!=0)
     return mask
 
-def getBoundingBoxDimensions(center_point, image_x, image_y):
-    
-    
 
+def getBoundingBoxDimensions(center_point, image_x, image_y):
     center_x = center_point[1]
     center_y = center_point[0]
-    
 
     right_boundary = image_x
     left_boundary = 0
@@ -71,36 +69,29 @@ def getBoundingBoxDimensions(center_point, image_x, image_y):
     lower_boundary = image_y
     upper_boundary = 0
 
-    if((center_x + BOUNDING_BOX_SIZE/2) < image_x):
-        right_boundary = center_x + BOUNDING_BOX_SIZE/2
+    if ((center_x + BOUNDING_BOX_SIZE / 2) < image_x):
+        right_boundary = center_x + BOUNDING_BOX_SIZE / 2
 
-    if((center_x - BOUNDING_BOX_SIZE/2) > 0):
-        left_boundary = center_x - BOUNDING_BOX_SIZE/2
+    if ((center_x - BOUNDING_BOX_SIZE / 2) > 0):
+        left_boundary = center_x - BOUNDING_BOX_SIZE / 2
 
-    if((center_y + BOUNDING_BOX_SIZE/2) < image_y):
-        lower_boundary = center_y + BOUNDING_BOX_SIZE/2
+    if ((center_y + BOUNDING_BOX_SIZE / 2) < image_y):
+        lower_boundary = center_y + BOUNDING_BOX_SIZE / 2
 
-    if((center_y - BOUNDING_BOX_SIZE/2) > 0):
-        upper_boundary = center_y - BOUNDING_BOX_SIZE/2
-
-    
-    
+    if ((center_y - BOUNDING_BOX_SIZE / 2) > 0):
+        upper_boundary = center_y - BOUNDING_BOX_SIZE / 2
 
     ydim = (lower_boundary - upper_boundary)
-    y_center_point= upper_boundary + (ydim / 2)
+    y_center_point = upper_boundary + (ydim / 2)
     xdim = (right_boundary - left_boundary)
     x_center_point = left_boundary + (xdim / 2)
-
-    
-    
 
     return (x_center_point, y_center_point, xdim, ydim)
 
 
 def getCenterPoints(red_pixels):
+    print(red_pixels)
     center_points = []
-
-    
 
     for pos in red_pixels:
         pos_right = (pos[0], pos[1] + 1)
@@ -116,9 +107,8 @@ def getCenterPoints(red_pixels):
         if right_not_red & left_red & below_red & above_red:
             center_points.append(pos)
 
-
     # center_point = 0
-    if(len(center_points) > 1):
+    if (len(center_points) > 1):
         if center_points[0][1] > center_points[1][1]:
             center_point = center_points[1]
         else:
@@ -126,7 +116,6 @@ def getCenterPoints(red_pixels):
 
     else:
         center_point = -1
-
 
     return center_point
 
@@ -137,26 +126,26 @@ def removeRed(files):
     print(files)
     i = 0
     for file in files:
-        #Open bounding box folder
+        # Open bounding box folder
         translation_file_path = IMAGE_OUT_PATH + "clean_" + ('.').join(file.split('.')[:-1]) + ".txt"
 
         translation_file = open(translation_file_path, "wb")
 
-        #Find red pixels in image
+        # Find red pixels in image
 
         im = cv2.imread('../raw_data/' + file, 1)
         mask = getMask(im)
         output_img = im.copy()
 
-        im_y,im_x = im.shape[:2]
+        im_y, im_x = im.shape[:2]
 
         left = (np.where(mask != 0)[0])
-        right =(np.where(mask != 0)[1])
+        right = (np.where(mask != 0)[1])
 
-        redPoints = zip(np.where(mask != 0)[0], np.where(mask != 0)[1])
+        redPoints = list(zip(np.where(mask != 0)[0], np.where(mask != 0)[1]))
 
         center_point = getCenterPoints(redPoints)
-        if(center_point != -1):
+        if (center_point != -1):
             for posX, posY in redPoints:
                 output_img[posX][posY] = getSurroundingColours(posX, posY, im)
 
@@ -167,16 +156,16 @@ def removeRed(files):
             xdim = center_data[2]
             ydim = center_data[3]
 
-            print file
-            cv2.imwrite("../out/data/images/" + "clean_" + file, output_img)
-
+            print(file)
+            cv2.imwrite("../../training/darknet/data/images/" + "clean_" + file, output_img)
 
             # Write out
-            translation_file.write("0 " + str(center_x/float(im_x)) + " " + str(center_y/float(im_y)) + " "
-                                   + str(xdim/float(im_x)) + " " + str(ydim/float(im_y)))
+            translation_file.write(bytes("0 " + str(center_x / float(im_x)) + " " + str(center_y / float(im_y)) + " "
+                                   + str(xdim / float(im_x)) + " " + str(ydim / float(im_y)),'UTF-8'))
+
 
 def cleanOut():
-    if(not os.path.exists("../out/")):
+    if (not os.path.exists("../out/")):
         os.makedirs("../out/")
 
     if not os.path.exists("../out/data/"):
@@ -193,6 +182,7 @@ def cleanOut():
     #             os.unlink(file_path)
     #     except Exception as e:
     #         print(e)
+
 
 def main():
     print("Running main")
