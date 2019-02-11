@@ -1,31 +1,32 @@
 import glob
 import os
 
-def buildTrainTestFiles(training_data_path, image_out_path):
-    # Current directory
-    current_dir = os.path.dirname(os.path.abspath(__file__))
+PERCENTAGE_TEST = 10
 
+
+def buildTrainTestFiles(training_data_path, image_out_path):
+    # Build out path
+    current_dir = os.path.dirname(os.path.abspath(__file__))
     path_data = current_dir + "/" + image_out_path
 
-
-
-    percentage_test = 10
-
+    # Open data files
     file_train = open(training_data_path + 'train.txt', 'w')
     file_test = open(training_data_path + 'test.txt', 'w')
 
     print(path_data)
+
     counter = 1
-    index_test = round(100 / percentage_test)
+    # Generate index for which the next image will be designated a testing file
+    index_for_testing_file = round(100 / PERCENTAGE_TEST)
+
     for pathAndFilename in glob.iglob(os.path.join(path_data, "*.jpg")):
 
+        title = os.path.splitext(os.path.basename(pathAndFilename))[0]
 
-        title, ext = os.path.splitext(os.path.basename(pathAndFilename))
-
-        if counter == index_test:
+        # If index matches testing index add to test file, otherwise traing file
+        if counter == index_for_testing_file:
             counter = 1
             file_test.write(path_data + title + '.jpg' + "\n")
         else:
             file_train.write(path_data + title + '.jpg' + "\n")
             counter = counter + 1
-
