@@ -33,15 +33,15 @@ def show_message(message, stop=False):
 
 
 def parse_args():
-    parser = argparse.ArgumentParser(description="model_handling log parser by DeepKeeper ")
+    parser = argparse.ArgumentParser(description="training log parser by DeepKeeper ")
     parser.add_argument('--source-dir', dest='source_dir', type=str, default='./',
                         help='the log source directory')
     parser.add_argument('--save-dir', dest='save_dir', type=str, default='./',
                         help='the directory to be saved')
     parser.add_argument('--csv-file', dest='csv_file', type=str, default="",
-                        help='model_handling log file')
+                        help='training log file')
     parser.add_argument('--log-file', dest='log_file', type=str, default="",
-                        help='model_handling log file')
+                        help='training log file')
     parser.add_argument('--show', dest='show_plot', type=bool, default=False,
                         help='whether to show')
     return parser.parse_args()
