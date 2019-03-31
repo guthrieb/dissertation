@@ -7,6 +7,7 @@ import numpy as np
 
 import model_handling.image_translation.conversion.jpeg_conversion as jpeg_conversion
 import model_handling.image_translation.conversion.test_train_files_build as test_train_files_build
+from model_handling.image_translation.conversion import k_fold_validation
 
 CLEAN_PREFIX = "clean_"
 
@@ -177,4 +178,5 @@ def translate():
     removeRed(onlyfiles)
 
     jpeg_conversion.convertTif(IMAGE_OUT_PATH)
-    test_train_files_build.buildTrainTestFiles(TRAINING_DATA_PATH, IMAGE_OUT_PATH)
+    test_train_files_build.build_train_test_files(TRAINING_DATA_PATH, IMAGE_OUT_PATH)
+    k_fold_validation.perform_separation(TRAINING_DATA_PATH, IMAGE_OUT_PATH)

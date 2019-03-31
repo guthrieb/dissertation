@@ -43,16 +43,16 @@ def main():
     if clean_images_build_model:
         model_handling.builder.build_model.build_model()
     elif detecting:
-        model_handling.detecting.detector.detect("PLACEHOLDER_FOR_MODEL", image_filename)
+        model_handling.detecting.detector.detect("yolo-obj_5000.weights", image_filename)
     elif build_profile:
-        model_handling.detecting.detector.detect("PLACEHOLDER_FOR_MODEL", image_filename,
-                                                 out_path="./result_handling/get_profile/data/centers")
+        model_handling.detecting.detector.detect("yolo-obj_5000.weights", image_filename)
         result_handling.get_profile.main.convert.draw_lines(image_filename)
     elif mean_squared_error:
         result_handling.evaluation.mean_squared_error.calculate_mean_squared_error(
             "../model_handling/training/darknet/data/")
     elif build_profile:
         result_handling.get_profile.main.convert.draw_lines(image_filename)
+
 
 if __name__ == "__main__":
     main()

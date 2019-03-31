@@ -4,7 +4,7 @@ import os
 PERCENTAGE_TEST = 10
 
 
-def buildTrainTestFiles(training_data_path, image_out_path):
+def build_train_test_files(training_data_path, image_out_path):
     # Build out path
     path_data = image_out_path
 
@@ -22,10 +22,12 @@ def buildTrainTestFiles(training_data_path, image_out_path):
 
         title = os.path.splitext(os.path.basename(pathAndFilename))[0]
 
-        # If index matches testing index add to test file, otherwise traing file
+        # If index matches testing index add to test file, otherwise training file
         if counter == index_for_testing_file:
             counter = 1
+            print(path_data + title + ".jpg")
             file_test.write(path_data + title + '.jpg' + "\n")
         else:
+            print(path_data + title + ".jpg")
             file_train.write(path_data + title + '.jpg' + "\n")
             counter = counter + 1

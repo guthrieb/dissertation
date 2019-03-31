@@ -2,10 +2,10 @@ import math
 import os
 
 from PIL import Image
+# from model_handling.
 
-
-def get_detected_center(image):
-    # result = detect_and_move(image, "result_handling/evaluation")
+def get_detected_center(model, image):
+    # result = detect_and_move(moadel, image, "result_handling/evaluation")
 
     return 744, 387
 
@@ -27,7 +27,7 @@ def get_actual_center(image):
     return int(float(bounding_box[1]) * width), int(float(bounding_box[2]) * height)
 
 
-def calculate_mean_squared_error(data_path):
+def calculate_mean_squared_error(model_name, data_path):
 
     no_of_entries = 0
     diff_sum = 0

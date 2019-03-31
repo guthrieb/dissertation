@@ -1,0 +1,6 @@
+TODO Reduce to local minima
+    TODO Bilinear Interpolation
+    TODO Bandpass filter
+
+TODO Build Frequency Graph of Local Minima
+    TODO Classify Frequency sections

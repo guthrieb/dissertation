@@ -1,7 +1,6 @@
 raw_data/
 raw_data_full
 .idea/
-model_handling/training/darkneta/darknet/data
 
 *.pyc
 result_handling/__pycache__/
@@ -10,5 +9,5 @@ result_handling/evaluation/data/
 result_handling/get_profile/__pycache__/
 result_handling/get_profile/main/__pycache__/
 result_handling/image_mobility/__pycache__/
-venv/
 model_handling/training/darkneta/darknet/results/
+/venv
