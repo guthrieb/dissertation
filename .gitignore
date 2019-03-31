@@ -2,12 +2,5 @@ raw_data/
 raw_data_full
 .idea/
 
-*.pyc
-result_handling/__pycache__/
-result_handling/evaluation/__pycache__/
-result_handling/evaluation/data/
-result_handling/get_profile/__pycache__/
-result_handling/get_profile/main/__pycache__/
-result_handling/image_mobility/__pycache__/
-model_handling/training/darkneta/darknet/results/
+
 /venv
