@@ -10,3 +10,4 @@ echo "$test_file"
 echo "$train_file"
 
 cp "$test_file" "./model_handling/training/darknet/data/"
+cp "$train_file" "./model_handling/training/darknet/data/"
